@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 public class Food : MonoBehaviour
 {
@@ -11,8 +10,8 @@ public class Food : MonoBehaviour
     private void RandomizeFoodPosition()
     {
         Bounds bounds = this.gridArea.bounds;
-        float x = UnityEngine.Random.Range(bounds.min.x, bounds.max.x);
-        float y = UnityEngine.Random.Range(bounds.min.y, bounds.max.y);
+        float x = Random.Range(bounds.min.x, bounds.max.x);
+        float y = Random.Range(bounds.min.y, bounds.max.y);
 
         this.transform.position = new Vector3(Mathf.Round(x), Mathf.Round(y), 0.0f);
     }
