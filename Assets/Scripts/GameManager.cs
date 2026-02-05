@@ -3,6 +3,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI todays_BestTextInGame;
     public TextMeshProUGUI weekly_BestTextInGame;
     public TextMeshProUGUI allTime_BestTextInGame;
+    public TextMeshProUGUI modeInGame;
+    public TextMeshProUGUI modeOnGameOver;
     
     public int score;
     public int todayBest;
@@ -29,6 +32,14 @@ public class GameManager : MonoBehaviour
     private const string TODAY_BEST_KEY = "TodayBest";
     private const string LAST_PLAY_DATE_KEY = "LastPlayDate";
     private const string WEEK_START_DATE_KEY = "WeekStartDate";
+    private int mode;
+
+    [SerializeField]private Sprite smileImage;
+    [SerializeField]private Sprite paleImage;
+    [SerializeField]private Sprite devilImage;
+    [SerializeField]private Image gameOverDisplayImage;
+    [SerializeField]private GameObject food1;
+    [SerializeField]private GameObject food2;
 
     void Start()
     {
@@ -36,6 +47,33 @@ public class GameManager : MonoBehaviour
         gameOverPanel.SetActive(false);
         isPaused = false;
         gameOverPanelDisplayed = false;
+
+        mode = PlayerPrefs.GetInt("SelectedDifficulty");
+         switch (mode)
+        {
+            case 0:
+                modeInGame.text = "Easy Mode";
+                modeOnGameOver.text = "    EASY               MODE";
+                modeOnGameOver.color = Color.green;
+                gameOverDisplayImage.sprite = smileImage;
+            break;
+            case 1:
+                modeInGame.text = "Medium Mode";
+                modeOnGameOver.text = "MEDIUM                MODE";
+                 modeOnGameOver.color = Color.yellow;
+                 gameOverDisplayImage.sprite = paleImage;
+                 Destroy(food1);
+            break;
+            case 2:
+                modeInGame.text = "Hard Mode";
+                modeOnGameOver.text = "    HARD              MODE";
+                 modeOnGameOver.color = Color.red;
+                 gameOverDisplayImage.sprite = devilImage;
+                  Destroy(food1);
+                 Destroy(food2);
+            break;
+            // default:
+        }
         
         LoadBestScores();
         UpdateBestScoresUI();
@@ -230,14 +268,14 @@ public class GameManager : MonoBehaviour
 
     public void HomeButton()
     {
-        Debug.Log("HomeButton");
+        SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1f;
-        // SceneManager.LoadScene("MainMenu");
+        
     }
 
     public void BackButton()
     {
-        Debug.Log("BackButton");
+        SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1f;
         // Add your back button logic here
     }

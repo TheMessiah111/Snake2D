@@ -6,7 +6,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class Snake : MonoBehaviour
 {
-    private int moveSpeed = 5;
+    private int moveSpeed;
     private List<Transform> segments = new List<Transform>();
     public Transform segmentPreFab;
 
@@ -15,17 +15,28 @@ public class Snake : MonoBehaviour
     private Transform trans;
     private Vector2 direction = Vector2.right;
     public static event Action OnSnakeCollision;
-
-    public Transform LeftBoundary, RightBoundary, TopBoundary, BottomBoundary;
-    // private float offset = 0.1f;
+    private int difficulty;
+    
 
     private void Start()
     {
         trans = GetComponent<Transform>();
         segments.Add(this.transform);
-        // This sets up initial movement, though it's often better to let it start after the first input.
-        // Or you can use this to apply constant velocity.
-        // For a grid-based snake, movement is often handled by updating position, not applying velocity.
+        difficulty = PlayerPrefs.GetInt("SelectedDifficulty");
+        switch (difficulty)
+        {
+            case 0:
+                moveSpeed = 5;
+            break;
+            case 1:
+                moveSpeed = 10;
+            break;
+            case 2:
+                moveSpeed = 15;
+            break;
+            // default:
+        }
+
     }
 
     private void Update()
