@@ -2,10 +2,15 @@ using UnityEngine;
 public class Food : MonoBehaviour
 {
     public BoxCollider2D gridArea;
+    private GameManager gameManager;
 
     private void Start()
     {
-        RandomizeFoodPosition();
+        if (gameManager == null)
+    {
+        gameManager = FindFirstObjectByType<GameManager>();
+    }
+     RandomizeFoodPosition();
     }
     private void RandomizeFoodPosition()
     {
@@ -18,9 +23,10 @@ public class Food : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
 
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Snake") && gameManager != null && !gameManager.isGameOver)
         {
             RandomizeFoodPosition();
+            gameManager.UpdateScore();
         }
     }
 
