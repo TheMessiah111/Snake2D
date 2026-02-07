@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
             case 1:
                 modeInGame.text = "Medium Mode";
                 modeOnGameOver.text = "MEDIUM                MODE";
-                 modeOnGameOver.color = Color.yellow;
+                 modeOnGameOver.color = Color.darkOrange;
                  gameOverDisplayImage.sprite = paleImage;
                  Destroy(food1);
             break;
@@ -222,22 +222,24 @@ public class GameManager : MonoBehaviour
             scoreTextOnGameOver.text = score.ToString();
     }
 
-    public void UpdateScore()
-    {
-        score++;
-    }
+    public void UpdateScore(int points = 1)
+{
+     Debug.Log("GameManager hears the call");
+    score += points;
+    // your UI update code
+}
 
     public void OnPauseOrPlay()
     {
         if(isPaused == false)
         {
-            Debug.Log("Pause");
+            // Debug.Log("Pause");
             isPaused = true;
             Time.timeScale = 0f;
         }
         else
         {
-            Debug.Log("Play");
+            // Debug.Log("Play");
             isPaused = false;
             Time.timeScale = 1f;
         }
@@ -261,7 +263,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayAgain()
     {
-        Debug.Log("PlayAgain");
+        // Debug.Log("PlayAgain");
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -277,6 +279,5 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1f;
-        // Add your back button logic here
     }
 }
